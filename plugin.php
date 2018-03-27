@@ -247,7 +247,7 @@ final class PMXI_Plugin {
 
 		$this->options = array_intersect_key(get_option($option_name, array()), $options_default) + $options_default;
 		$this->options = array_intersect_key($options_default, array_flip(array('info_api_url'))) + $this->options; // make sure hidden options apply upon plugin reactivation
-		if ('' == $this->options['cron_job_key']) $this->options['cron_job_key'] = wp_all_import_url_title(wp_all_import_rand_char(12));
+		if (!array_key_exists('cron_job_key', $this->options) || '' == $this->options['cron_job_key']) $this->options['cron_job_key'] = wp_all_import_url_title(wp_all_import_rand_char(12));
 
 		update_option($option_name, $this->options);
 		$this->options = get_option(get_class($this) . '_Options');
