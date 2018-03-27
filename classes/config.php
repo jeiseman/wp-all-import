@@ -41,8 +41,8 @@ class PMXI_Config implements IteratorAggregate {
 			if ($filePath and ! in_array($filePath, $this->loaded)) {
 				require $filePath;
 				
-				$sandbox = create_function('', "require '$filePath'; if(array_keys(get_defined_vars()) != array('config')) return array(); return \$config;");
-				$config = $sandbox();
+                                if (array_keys(get_defined_vars()) != array('config'))
+                                    $config = array();
 				$this->loaded[] = $filePath;
 				$this->config = array_merge($this->config, $config);
 			}
